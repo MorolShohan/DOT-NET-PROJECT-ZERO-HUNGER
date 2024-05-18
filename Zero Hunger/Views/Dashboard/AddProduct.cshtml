@@ -1,0 +1,62 @@
+﻿@model Zero_Hunger.Models.ProductDTO
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS to center the form both horizontally and vertically */
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="container form-container">
+            <h2 class="text-center">Create Product</h2>
+
+            @using (Html.BeginForm("AddProduct", "Dashboard", FormMethod.Post, new { @class = "mt-4", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name)
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description)
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Description)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhotoFile)
+                    @Html.TextBoxFor(model => model.PhotoFile, new { type = "file", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PhotoFile)
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Create</button>
+                </div>
+            }
+            <div class="form-group">
+                @Html.ActionLink("Back to Dashboard", "RestaurantDashboard", "LogIn")
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

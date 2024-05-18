@@ -1,0 +1,102 @@
+﻿@model Zero_Hunger.Models.SignUpDTO
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS to center the form both horizontally and vertically */
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="container form-container">
+            <h2 class="text-center">Sign Up</h2>
+
+            @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { @class = "mt-4" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name)
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword)
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AccountType)
+                    @Html.DropDownListFor(model => model.AccountType, new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Select Account Type", Value = "" },
+                        new SelectListItem { Text = "Restaurant Owner", Value = "1" },
+                        new SelectListItem { Text = "Admin", Value = "2" },
+                        new SelectListItem { Text = "Employee", Value = "3" }
+                    }, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AccountType)
+                </div>
+
+                <div class="form-group" id="restaurantNameField" style="display: none;">
+                    @Html.LabelFor(model => model.ResturentName)
+                    @Html.TextBoxFor(model => model.ResturentName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ResturentName)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address)
+                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Address)
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Sign Up" class="btn btn-primary btn-block">
+                </div>
+            }
+            <p class="text-center">Already have an account? <a href="@Url.Action("Index", "LogIn")">Log in</a></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#AccountType").change(function () {
+                if ($(this).val() == "1") { 
+                    $("#restaurantNameField").show();
+                } else {
+                    $("#RestaurantName").val("null");
+                    $("#restaurantNameField").hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

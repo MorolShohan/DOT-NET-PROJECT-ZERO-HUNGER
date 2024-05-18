@@ -1,0 +1,41 @@
+﻿<div class="container mt-4">
+    <h1>Admin Notifications</h1>
+
+    @foreach (var notification in Model)
+    {
+        <div class="alert @(notification.Status == 1 ? "alert-success" : "alert-danger")" role="alert">
+            @if (notification.Status == 1)
+            {
+                <strong>Accepted:</strong>
+            }
+            else if (notification.Status == 2)
+            {
+                <strong>Rejected:</strong>
+            }
+            <span>@notification.Amount</span> packet
+
+            @{
+                string productName = "";
+                int productId = notification.ProductId ?? default(int);
+                if (ViewBag.ProductNames != null && ViewBag.ProductNames.ContainsKey(productId))
+                {
+                    productName = ViewBag.ProductNames[productId];
+                }
+            }
+
+            @productName has been
+
+            @if (notification.Status == 1)
+            {
+                <span>accepted</span>
+            }
+            else if (notification.Status == 2)
+            {
+                <span>rejected</span>
+            }
+
+            of @notification.Restaurant.
+        </div>
+    }
+    @Html.ActionLink("Back To Dashboard", "AdminDashboard", "LogIn")
+</div>
