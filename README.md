@@ -10,6 +10,6 @@ User Story: We need a system that will help us to automate and track our works. 
 Technologies Used
 
     Frontend: React JS, Tailwind CSS
-    Backend: C# , DOT NET, 3 Layer Architechture, SOLID Principles, MYSQL, Entity Framework
+    Backend: C# , DOT NET, MYSQL, Entity Framework
     Tools: Visual Studio, Postman.
 
